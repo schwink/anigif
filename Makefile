@@ -15,6 +15,12 @@ gifs: frames
 		convert frames/$$f -dither FloydSteinberg -colors 256 gifs/$$f.gif ; \
 	done
 
+sgifs: frames
+	mkdir -p sgifs
+	for f in `ls frames/* | xargs -n1 basename` ; do \
+		convert frames/$$f -resize 500x500^ -crop 500x500+80+0! -dither FloydSteinberg -colors 256 gifs/$$f.gif ; \
+	done
+
 out.gif: gifs
 	convert -delay 3 -loop 0 gifs/*.gif out.gif
 
